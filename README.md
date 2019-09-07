@@ -10,10 +10,12 @@ Push Source Code To Envato FTP By packing contents into a zipfile
 ## Configuration
 | Argument | Default | Description |
 | --- | ------- | ----------- |
-|`envato_username` | null | Your Envato Account Username |
-|`envato_access_code` | null | Your Envato Access Code `Personal Access Token`. See Blow On How To Get Your Token |
-|`custom_command` | null | This can be used to pass custom command which can be used to build plugin assets before files are copied to plugin Eg : `composer install` |
-|`exclude_list` | null | Add file / folders that you wish to exclude from final list of files to be sent to envato |
+|`ENVATO_USERNAME` | null | Your Envato Account Username |
+|`ENVATO_PERSONAL_TOKEN` | null | Your Envato Access Code `Personal Access Token`. See Blow On How To Get Your Token |
+|`CUSTOM_COMMAND` | null | This can be used to pass custom command which can be used to build plugin assets before files are copied to plugin Eg : `composer install` |
+|`EXCLUDE_LIST` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato |
+|`ASSETS_PATH` | '.envatoassets/' | Add file / Local Assets Path |
+|`ASSETS_EXCLUDE_LIST` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato. this is just for assets. & can you add files like *.psd |
 
 **⚠️ Tips:**
 
@@ -46,8 +48,8 @@ name: Enavto Publisher
 
 on:
   push:
-    branches:
-    - refs/tags/*
+    tags:
+    - "*"
 
 jobs:
   envatoftp:
@@ -63,6 +65,15 @@ jobs:
         exclude_list: "vendor/*/*/README.md vendor/*/*/.gitignore"
 ```
 
+---
+
+## Change Log
+
+### 1.1 [07/09/2019]
+* Added Option To Push Envato Item's Aseets Such as banner , icon & screenshots
+
+### 1.0 [23/08/2019]
+* First Release
 ---
 
 ## Contribute
