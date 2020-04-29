@@ -41,7 +41,7 @@ fi
 echo ".git .github exclude.txt node_modules envato_exclude_list.txt envato_assets_exclude_list.txt .gitattributes .gitignore .DS_Store" | tr " " "\n" >>envato_exclude_list.txt
 echo "screenshots/ *.psd .DS_Store Thumbs.db ehthumbs.db ehthumbs_vista.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>envato_assets_exclude_list.txt
 
-if [ -d "./$ASSETS_PATH" ]; then
+if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "$ASSETS_PATH" | tr " " "\n" >>envato_exclude_list.txt
 fi
 
@@ -51,6 +51,7 @@ mkdir ../envato-draft-source/"$SLUG"
 mkdir ../envato-draft-source-assets
 mkdir ../envato-draft-source-screenshots
 mkdir ../envato-final-source/
+echo "ASSETS DIR : $GITHUB_WORKSPACE/$ASSETS_PATH"
 
 echo "➤ Removing Excluded Files"
 rsync -r --delete --exclude-from="./envato_exclude_list.txt" "./" ../envato-draft-source/"$SLUG"
@@ -62,7 +63,7 @@ zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
 echo "##[endgroup]"
 echo " "
 
-if [ -d "./$ASSETS_PATH" ]; then
+if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "➤ Copying Banner, Icon & Screenshots"
   rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/" ../envato-draft-source-assets
   rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
