@@ -20,6 +20,7 @@ fi
 
 # Custom Command Option
 if [[ ! -z "$CUSTOM_COMMAND" ]]; then
+  echo " "
   echo "##[group] Running Custom Command"
   eval "$CUSTOM_COMMAND"
   echo "##[endgroup]"
@@ -54,10 +55,12 @@ mkdir ../envato-final-source/
 echo "➤ Removing Excluded Files"
 rsync -r --delete --exclude-from="./envato_exclude_list.txt" "./" ../envato-draft-source/"$SLUG"
 
-echo "##[group] ➤ Generating Final Zip File"
+echo " "
+echo "##[group] Generating Final Zip File"
 cd ../envato-draft-source/
 zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
 echo "##[endgroup]"
+echo " "
 
 if [ -d "./$ASSETS_PATH" ]; then
   echo "➤ Copying Banner, Icon & Screenshots"
@@ -68,14 +71,15 @@ if [ -d "./$ASSETS_PATH" ]; then
   cd ../envato-draft-source-assets
   mv ./* ../envato-final-source/
 
+  echo " "
   echo "##[group] ➤ Packing Screenshots"
   cd ../envato-draft-source-screenshots
   zip -r9 "../envato-final-source/$SLUG-$VERSION-screenshots.zip" ./
   echo "##[endgroup]"
+  echo " "
 else
-  echo " ℹ︎Assets Folder Not Found"
+  echo " ℹ︎ Assets Folder Not Found"
 fi
-
 
 echo "➤ Zip Filename : $SLUG-$VERSION.zip"
 echo "➤ Envato Upload Started"
