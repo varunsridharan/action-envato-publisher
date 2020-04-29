@@ -1,5 +1,3 @@
-> **⚠️ Note:** To use this GitHub Action, you must have access to GitHub Actions. GitHub Actions are currently only available in public beta. You can [apply for Github Actions beta access here](https://github.com/features/actions).
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/varunsridharan/action-envato-publisher/master/assets/logo.png" alt="Envato"/>
 </p>
@@ -44,7 +42,7 @@ Push Source Code To Envato FTP By packing contents into a zipfile
 
 ## Example Workflow File
 ```yaml
-name: Enavto Publisher
+name: Envato Publisher
 
 on:
   push:
@@ -52,11 +50,11 @@ on:
     - "*"
 
 jobs:
-  envatoftp:
+  Envato_Publisher:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Enavto Publisher
+    - name: Envato Publisher
     - uses: varunsridharan/action-envato-publisher@master
       with:
         envato_username: ${{ secrets.envato_username }}
@@ -65,15 +63,6 @@ jobs:
         exclude_list: "vendor/*/*/README.md vendor/*/*/.gitignore"
 ```
 
----
-
-## Change Log
-
-### 1.1 [07/09/2019]
-* Added Option To Push Envato Item's Aseets Such as banner , icon & screenshots
-
-### 1.0 [23/08/2019]
-* First Release
 ---
 
 ## Contribute
