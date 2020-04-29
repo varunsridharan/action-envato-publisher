@@ -50,23 +50,26 @@ mkdir ../envato-final-source/
 echo "➤ Removing Excluded Files"
 rsync -r --delete --exclude-from="./envato_exclude_list.txt" "./" ../envato-draft-source/"$SLUG"
 
-echo "➤ Copying Banner, Icon & Screenshots"
-rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/" ../envato-draft-source-assets
-rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
-
 echo "##[group] ➤ Generating Final Zip File"
 cd ../envato-draft-source/
 zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
 echo "##[endgroup]"
 
-echo "➤ Copying Banner & Icons if exists."
-cd ../envato-draft-source-assets
-mv ./* ../envato-final-source/
+if [ -d "./$ASSETS_PATH" ]; then
+  echo "➤ Copying Banner, Icon & Screenshots"
+  rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/" ../envato-draft-source-assets
+  rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
 
-echo "##[group] ➤ Packing Screenshots"
-cd ../envato-draft-source-screenshots
-zip -r9 "../envato-final-source/$SLUG-$VERSION-screenshots.zip" ./
-echo "##[endgroup]"
+  echo "➤ Copying Banner & Icons if exists."
+  cd ../envato-draft-source-assets
+  mv ./* ../envato-final-source/
+
+  echo "##[group] ➤ Packing Screenshots"
+  cd ../envato-draft-source-screenshots
+  zip -r9 "../envato-final-source/$SLUG-$VERSION-screenshots.zip" ./
+  echo "##[endgroup]"
+fi
+
 
 echo "➤ Zip Filename : $SLUG-$VERSION.zip"
 echo "➤ Envato Upload Started"
