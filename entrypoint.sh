@@ -65,8 +65,8 @@ echo " "
 
 if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "➤ Copying Banner, Icon & Screenshots"
-  rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/" ../envato-draft-source-assets
-  rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
+  rsync -r --delete --exclude-from="$GITHUB_WORKSPACE/envato_assets_exclude_list.txt" "$GITHUB_WORKSPACE/$ASSETS_PATH/" ../envato-draft-source-assets
+  rsync -r --delete --exclude-from="$GITHUB_WORKSPACE/envato_assets_exclude_list.txt" "$GITHUB_WORKSPACE/$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
 
   echo "➤ Copying Banner & Icons if exists."
   cd ../envato-draft-source-assets
