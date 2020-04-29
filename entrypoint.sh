@@ -55,13 +55,6 @@ mkdir ../envato-final-source/
 echo "🚨 Removing Excluded Files"
 rsync -r --delete --exclude-from="./envato_exclude_list.txt" "./" ../envato-draft-source/"$SLUG"
 
-echo " "
-echo "##[group] 📦 Generating Final Zip File"
-cd ../envato-draft-source/
-zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
-echo "##[endgroup]"
-echo " "
-
 if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "✅ Copying Banner, Icon & Screenshots"
   rsync -r --delete --exclude-from="$GITHUB_WORKSPACE/envato_assets_exclude_list.txt" "$GITHUB_WORKSPACE/$ASSETS_PATH/" ../envato-draft-source-assets
@@ -70,20 +63,33 @@ if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "✅ Copying Banner & Icons if exists."
   cd ../envato-draft-source-assets
   mv ./* ../envato-final-source/
+else
+  echo "🚨︎ Assets Folder Not Found"
+fi
 
-  echo " "
+echo " "
+echo "##[group] 📦 Generating Final Zip File"
+cd ../envato-draft-source/
+zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
+echo "##[endgroup]"
+echo " "
+
+if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "##[group] 📦 Packing Screenshots"
   cd ../envato-draft-source-screenshots
   zip -r9 "../envato-final-source/$SLUG-$VERSION-screenshots.zip" ./
   echo "##[endgroup]"
   echo " "
-else
-  echo "🚨︎ Assets Folder Not Found"
 fi
 
-echo "📦 Zip Filename : $SLUG-$VERSION.zip"
+echo "📦 Source Zip Filename : $SLUG-$VERSION.zip"
+echo "📦 Screenshots Zip Filename : $SLUG-$VERSION-screenshots.zip"
+echo " "
 echo "🗃 Envato Upload Started"
 lftp "ftp.marketplace.envato.com" -u $ENVATO_USERNAME,$ENVATO_PERSONAL_TOKEN -e "set ftp:ssl-allow yes; mirror -R ../envato-final-source/ ./; quit"
+echo "##[group]⬆️Uploaded Files"
+cd ../envato-final-source && ls -lah
+echo "##[endgroup]"
 echo "👌 FTP Deploy Complete"
 
 rm -r ../envato-draft-source/
