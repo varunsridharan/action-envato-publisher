@@ -20,54 +20,58 @@ fi
 
 # Custom Command Option
 if [[ ! -z "$CUSTOM_COMMAND" ]]; then
-  echo "Running Custom Command"
+  echo "##[group] Running Custom Command"
   eval "$CUSTOM_COMMAND"
+  echo "##[endgroup]"
+  echo " "
 fi
 
 # Files That Are Needed To Be Excluded
 if [[ ! -z "$EXCLUDE_LIST" ]]; then
-  echo "Saving Excluded File List"
+  echo "➤ Saving Excluded File List"
   echo $EXCLUDE_LIST | tr " " "\n" >>envato_exclude_list.txt
 fi
 # Files That Are Needed To Be Excluded
 if [[ ! -z "$ASSETS_EXCLUDE_LIST" ]]; then
-  echo "Saving Excluded File List"
+  echo "➤ Saving Assets Excluded File List"
   echo $ASSETS_EXCLUDE_LIST | tr " " "\n" >>envato_assets_exclude_list.txt
 fi
 
 echo ".git .github exclude.txt node_modules envato_exclude_list.txt .gitattributes .gitignore .DS_Store" | tr " " "\n" >>envato_exclude_list.txt
 echo "screenshots/ *.psd .DS_Store Thumbs.db ehthumbs.db ehthumbs_vista.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>envato_assets_exclude_list.txt
 
-echo "Creating Required Temp Dirs"
+echo "➤ Creating Required Temp Directories"
 mkdir ../envato-draft-source/
 mkdir ../envato-draft-source/"$SLUG"
 mkdir ../envato-draft-source-assets
 mkdir ../envato-draft-source-screenshots
 mkdir ../envato-final-source/
 
-echo "Removing Excluded Files"
+echo "➤ Removing Excluded Files"
 rsync -r --delete --exclude-from="./envato_exclude_list.txt" "./" ../envato-draft-source/"$SLUG"
 
-echo "Copying Banner, Icon & Screenshots"
+echo "➤ Copying Banner, Icon & Screenshots"
 rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/" ../envato-draft-source-assets
 rsync -r --delete --exclude-from="./envato_assets_exclude_list.txt" "./$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
 
-echo "Generating Final Zip File"
+echo "##[group] ➤ Generating Final Zip File"
 cd ../envato-draft-source/
 zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
+echo "##[endgroup]"
 
-echo "Copying Banner&Icons if exists."
+echo "➤ Copying Banner & Icons if exists."
 cd ../envato-draft-source-assets
 mv ./* ../envato-final-source/
 
-echo "Packing Screenshots"
+echo "##[group] ➤ Packing Screenshots"
 cd ../envato-draft-source-screenshots
 zip -r9 "../envato-final-source/$SLUG-$VERSION-screenshots.zip" ./
+echo "##[endgroup]"
 
-echo "Zip Filename : $SLUG-$VERSION.zip"
-echo "Envato Upload Started"
+echo "➤ Zip Filename : $SLUG-$VERSION.zip"
+echo "➤ Envato Upload Started"
 lftp "ftp.marketplace.envato.com" -u $ENVATO_USERNAME,$ENVATO_PERSONAL_TOKEN -e "set ftp:ssl-allow yes; mirror -R ../envato-final-source/ ./; quit"
-echo "FTP Deploy Complete"
+echo "➤ FTP Deploy Complete"
 
 rm -r ../envato-draft-source/
 rm -r ../envato-draft-source-assets
