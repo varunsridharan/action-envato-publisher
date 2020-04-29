@@ -37,8 +37,12 @@ if [[ ! -z "$ASSETS_EXCLUDE_LIST" ]]; then
   echo $ASSETS_EXCLUDE_LIST | tr " " "\n" >>envato_assets_exclude_list.txt
 fi
 
-echo ".git .github exclude.txt node_modules envato_exclude_list.txt .gitattributes .gitignore .DS_Store" | tr " " "\n" >>envato_exclude_list.txt
+echo ".git .github exclude.txt node_modules envato_exclude_list.txt envato_assets_exclude_list.txt .gitattributes .gitignore .DS_Store" | tr " " "\n" >>envato_exclude_list.txt
 echo "screenshots/ *.psd .DS_Store Thumbs.db ehthumbs.db ehthumbs_vista.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>envato_assets_exclude_list.txt
+
+if [ -d "./$ASSETS_PATH" ]; then
+  echo "$ASSETS_PATH" | tr " " "\n" >>envato_exclude_list.txt
+fi
 
 echo "➤ Creating Required Temp Directories"
 mkdir ../envato-draft-source/
@@ -68,6 +72,8 @@ if [ -d "./$ASSETS_PATH" ]; then
   cd ../envato-draft-source-screenshots
   zip -r9 "../envato-final-source/$SLUG-$VERSION-screenshots.zip" ./
   echo "##[endgroup]"
+else
+  echo " ℹ︎Assets Folder Not Found"
 fi
 
 
