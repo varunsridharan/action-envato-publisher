@@ -14,6 +14,7 @@ Push Source Code To Envato FTP By packing contents into a zipfile
 |`EXCLUDE_LIST` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato |
 |`ASSETS_PATH` | '.envatoassets/' | Add file / Local Assets Path |
 |`ASSETS_EXCLUDE_LIST` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato. this is just for assets. & can you add files like *.psd |
+| `DIST_LOCATION` | `./dist/` | Will store all files uploaded to envato in current action's instance. use this to provide custom path.
 
 **⚠️ Tips:**
 
