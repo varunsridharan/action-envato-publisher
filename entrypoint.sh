@@ -7,6 +7,7 @@ CUSTOM_COMMAND="${INPUT_CUSTOM_COMMAND}"
 EXCLUDE_LIST="${INPUT_EXCLUDE_LIST}"
 ASSETS_PATH="${INPUT_ASSETS_PATH}"
 ASSETS_EXCLUDE_LIST="${INPUT_ASSETS_EXCLUDE_LIST}"
+DIST_LOCATION="${INPUT_DIST_LOCATION}"
 
 # Allow some ENV variables to be customized
 SLUG=${GITHUB_REPOSITORY#*/}
@@ -16,6 +17,10 @@ VERSION=${GITHUB_REF#refs/tags/}
 
 if [[ $VERSION == $GITHUB_REF ]]; then
   VERSION=${GITHUB_REF#refs/heads/}
+fi
+
+if [[ -z "$DIST_LOCATION" ]]; then
+  DIST_LOCATION="dist/"
 fi
 
 # Custom Command Option
@@ -91,6 +96,11 @@ echo "##[group]⬆️Uploaded Files"
 cd ../envato-final-source && ls -lah
 echo "##[endgroup]"
 echo "👌 FTP Deploy Complete"
+
+echo "##[group] 📦 Copying To Dist Folder"
+mkdir "$GITHUB_WORKSPACE/$DIST_LOCATION"
+cp -r ../envato-final-source/* "$GITHUB_WORKSPACE/$DIST_LOCATION"
+echo "##[endgroup]"
 
 rm -r ../envato-draft-source/
 rm -r ../envato-draft-source-assets

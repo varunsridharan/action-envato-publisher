@@ -23,6 +23,9 @@ inputs:
   ASSETS_EXCLUDE_LIST:
     description: 'Add file / folders that you wish to exclude from final list of files to be sent to ftp. Eg development files. Final value of this var is expected to be a string delimited with spaces. Eg: ".gitignore package.json README.md" Please Note, excluded file/folder path, is considered from the root of repository unless CUSTOM_PATH is provided, in which case excluded file/folder path should be relative to the final source of files.'
     default: ''
+  DIST_LOCATION:
+    description: 'Provide a path here final zip file can be stored. which can be used by other actions.'
+    default: 'dist/'
 
 runs:
   using: 'docker'
@@ -34,3 +37,4 @@ runs:
     - ${{ inputs.EXCLUDE_LIST }}
     - ${{ inputs.ASSETS_PATH }}
     - ${{ inputs.ASSETS_EXCLUDE_LIST }}
+    - ${{ inputs.DIST_LOCATION }}
