@@ -36,11 +36,11 @@ elif [ -f "$ASSETS_IGNORE" ]; then
   ASSETS_IGNORE_PATH="$GITHUB_WORKSPACE/$ASSETS_IGNORE"
 fi
 
-if [ ! -z "$ASSETS_IGNORE_PATH"]; then
+if [ ! -z "$ASSETS_IGNORE_PATH" ]; then
   echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
 fi
 
-if [ ! -z "$DIST_IGNORE_PATH"]; then
+if [ ! -z "$DIST_IGNORE_PATH" ]; then
   echo "$ASSETS_IGNORE $DIST_IGNORE .git .github node_modules .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
 fi
 
