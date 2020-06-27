@@ -50,6 +50,10 @@ if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "$ASSETS_PATH" | tr " " "\n" >>envato_exclude_list.txt
 fi
 
+
+cat envato_exclude_list.txt
+cat envato_assets_exclude_list.txt
+
 echo "✅ Creating Required Temp Directories"
 mkdir ../envato-draft-source/
 mkdir ../envato-draft-source/"$SLUG"
