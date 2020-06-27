@@ -3,7 +3,6 @@ set -eu
 
 ENVATO_USERNAME="${INPUT_ENVATO_USERNAME}"
 ENVATO_PERSONAL_TOKEN="${INPUT_ENVATO_PERSONAL_TOKEN}"
-CUSTOM_COMMAND="${INPUT_CUSTOM_COMMAND}"
 EXCLUDE_LIST="${INPUT_EXCLUDE_LIST}"
 ASSETS_PATH="${INPUT_ASSETS_PATH}"
 ASSETS_EXCLUDE_LIST="${INPUT_ASSETS_EXCLUDE_LIST}"
@@ -23,15 +22,6 @@ if [[ -z "$DIST_LOCATION" ]]; then
   DIST_LOCATION="dist/"
 fi
 
-# Custom Command Option
-if [[ ! -z "$CUSTOM_COMMAND" ]]; then
-  echo " "
-  echo "##[group] ✅ Running Custom Command"
-  eval "$CUSTOM_COMMAND"
-  echo "##[endgroup]"
-  echo " "
-fi
-
 # Files That Are Needed To Be Excluded
 if [[ ! -z "$EXCLUDE_LIST" ]]; then
   echo "✅ Saving Excluded File List"
@@ -49,10 +39,6 @@ echo "screenshots/ *.psd .DS_Store Thumbs.db ehthumbs.db ehthumbs_vista.db .git 
 if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "$ASSETS_PATH" | tr " " "\n" >>envato_exclude_list.txt
 fi
-
-
-cat envato_exclude_list.txt
-cat envato_assets_exclude_list.txt
 
 echo "✅ Creating Required Temp Directories"
 mkdir ../envato-draft-source/

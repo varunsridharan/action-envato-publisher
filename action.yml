@@ -11,9 +11,6 @@ inputs:
   ENVATO_PERSONAL_TOKEN:
     description: 'Envato.com Account Personal Access Token'
     default: ''
-  CUSTOM_COMMAND:
-    description: 'Some plugins tend to have a different folder inside git repository where the source files are kept aside from development files. If provided files will be copied from CUSTOM_PATH to plugin trunk.'
-    default: ''
   EXCLUDE_LIST:
     description: 'Add file / folders that you wish to exclude from final list of files to be sent to ftp. Eg development files. Final value of this var is expected to be a string delimited with spaces. Eg: ".gitignore package.json README.md" Please Note, excluded file/folder path, is considered from the root of repository unless CUSTOM_PATH is provided, in which case excluded file/folder path should be relative to the final source of files.'
     default: ''
@@ -33,7 +30,6 @@ runs:
   args:
     - ${{ inputs.ENVATO_USERNAME }}
     - ${{ inputs.ENVATO_PERSONAL_TOKEN }}
-    - ${{ inputs.CUSTOM_COMMAND }}
     - ${{ inputs.EXCLUDE_LIST }}
     - ${{ inputs.ASSETS_PATH }}
     - ${{ inputs.ASSETS_EXCLUDE_LIST }}
