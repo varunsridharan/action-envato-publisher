@@ -11,13 +11,13 @@ inputs:
   ENVATO_PERSONAL_TOKEN:
     description: 'Envato.com Account Personal Access Token'
     default: ''
-  EXCLUDE_LIST:
+  DIST_IGNORE:
     description: 'Add file / folders that you wish to exclude from final list of files to be sent to ftp. Eg development files. Final value of this var is expected to be a string delimited with spaces. Eg: ".gitignore package.json README.md" Please Note, excluded file/folder path, is considered from the root of repository unless CUSTOM_PATH is provided, in which case excluded file/folder path should be relative to the final source of files.'
     default: ''
   ASSETS_PATH:
     description: 'Local Assets Path'
     default: '.envatoassets'
-  ASSETS_EXCLUDE_LIST:
+  ASSETS_IGNORE:
     description: 'Add file / folders that you wish to exclude from final list of files to be sent to ftp. Eg development files. Final value of this var is expected to be a string delimited with spaces. Eg: ".gitignore package.json README.md" Please Note, excluded file/folder path, is considered from the root of repository unless CUSTOM_PATH is provided, in which case excluded file/folder path should be relative to the final source of files.'
     default: ''
   DIST_LOCATION:
@@ -30,7 +30,7 @@ runs:
   args:
     - ${{ inputs.ENVATO_USERNAME }}
     - ${{ inputs.ENVATO_PERSONAL_TOKEN }}
-    - ${{ inputs.EXCLUDE_LIST }}
+    - ${{ inputs.DIST_IGNORE }}
     - ${{ inputs.ASSETS_PATH }}
-    - ${{ inputs.ASSETS_EXCLUDE_LIST }}
+    - ${{ inputs.ASSETS_IGNORE }}
     - ${{ inputs.DIST_LOCATION }}

@@ -3,16 +3,14 @@ set -eu
 
 ENVATO_USERNAME="${INPUT_ENVATO_USERNAME}"
 ENVATO_PERSONAL_TOKEN="${INPUT_ENVATO_PERSONAL_TOKEN}"
-EXCLUDE_LIST="${INPUT_EXCLUDE_LIST}"
+DIST_IGNORE="${INPUT_DIST_IGNORE}"
 ASSETS_PATH="${INPUT_ASSETS_PATH}"
-ASSETS_EXCLUDE_LIST="${INPUT_ASSETS_EXCLUDE_LIST}"
+ASSETS_IGNORE="${INPUT_ASSETS_IGNORE}"
 DIST_LOCATION="${INPUT_DIST_LOCATION}"
-
-# Allow some ENV variables to be customized
 SLUG=${GITHUB_REPOSITORY#*/}
-
-# Set VERSION value according to tag value.
 VERSION=${GITHUB_REF#refs/tags/}
+DIST_IGNORE_PATH=""
+ASSETS_IGNORE_PATH=""
 
 if [ $VERSION == $GITHUB_REF ]; then
   VERSION=${GITHUB_REF#refs/heads/}
@@ -22,22 +20,26 @@ if [ -z "$DIST_LOCATION" ]; then
   DIST_LOCATION="dist/"
 fi
 
-# Files That Are Needed To Be Excluded
-if [ ! -z "$EXCLUDE_LIST" ]; then
-  echo "✅ Saving Excluded File List"
-  echo $EXCLUDE_LIST | tr " " "\n" >>envato_exclude_list.txt
-fi
-# Files That Are Needed To Be Excluded
-if [ ! -z "$ASSETS_EXCLUDE_LIST" ]; then
-  echo "✅ Saving Assets Excluded File List"
-  echo $ASSETS_EXCLUDE_LIST | tr " " "\n" >>envato_assets_exclude_list.txt
+if [ ! -e "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
+  echo "⚠️ Dist Ignore File Not Found !"
+  DIST_IGNORE_PATH="${GITHUB_WORKSPACE}/.envato_distignore"
+  touch $DIST_IGNORE_PATH
+  echo ".git .github $ASSETS_IGNORE node_modules $DIST_IGNORE .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
+else
+  DIST_IGNORE_PATH="$GITHUB_WORKSPACE/$DIST_IGNORE"
 fi
 
-echo ".git .github exclude.txt node_modules envato_exclude_list.txt envato_assets_exclude_list.txt .gitattributes .gitignore .DS_Store" | tr " " "\n" >>envato_exclude_list.txt
-echo "screenshots/ *.psd .DS_Store Thumbs.db ehthumbs.db ehthumbs_vista.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>envato_assets_exclude_list.txt
+if [ ! -e "$GITHUB_WORKSPACE/$ASSETS_IGNORE" ]; then
+  echo "⚠️ Assets Ignore File Not Found !"
+  ASSETS_IGNORE_PATH="${GITHUB_WORKSPACE}/.envato_assets_distignore"
+  touch $ASSETS_IGNORE_PATH
+  echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
+else
+  DIST_IGNORE_PATH="$GITHUB_WORKSPACE/$ASSETS_IGNORE"
+fi
 
 if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
-  echo "$ASSETS_PATH" | tr " " "\n" >>envato_exclude_list.txt
+  echo "$ASSETS_PATH" | tr " " "\n" >>"$DIST_IGNORE_PATH"
 fi
 
 echo "✅ Creating Required Temp Directories"
@@ -48,12 +50,12 @@ mkdir ../envato-draft-source-screenshots
 mkdir ../envato-final-source/
 
 echo "🚨 Removing Excluded Files"
-rsync -r --delete --exclude-from="./envato_exclude_list.txt" "./" ../envato-draft-source/"$SLUG"
+rsync -r --delete --exclude-from="$DIST_IGNORE_PATH" "./" ../envato-draft-source/"$SLUG"
 
 if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo "✅ Copying Banner, Icon & Screenshots"
-  rsync -r --delete --exclude-from="$GITHUB_WORKSPACE/envato_assets_exclude_list.txt" "$GITHUB_WORKSPACE/$ASSETS_PATH/" ../envato-draft-source-assets
-  rsync -r --delete --exclude-from="$GITHUB_WORKSPACE/envato_assets_exclude_list.txt" "$GITHUB_WORKSPACE/$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
+  rsync -r --delete --exclude-from="$ASSETS_IGNORE_PATH" "$GITHUB_WORKSPACE/$ASSETS_PATH/" ../envato-draft-source-assets
+  rsync -r --delete --exclude-from="$ASSETS_IGNORE_PATH" "$GITHUB_WORKSPACE/$ASSETS_PATH/screenshots/" ../envato-draft-source-screenshots
 
   echo "✅ Copying Banner & Icons if exists."
   cd ../envato-draft-source-assets
