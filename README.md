@@ -10,9 +10,9 @@ Push Source Code To Envato FTP By packing contents into a zipfile
 | :---: | :---: | ----------- |
 |`ENVATO_USERNAME` | null | Your Envato Account Username |
 |`ENVATO_PERSONAL_TOKEN` | null | Your Envato Access Code `Personal Access Token`. See Blow On How To Get Your Token |
-|`DIST_IGNORE` | null | File Location To DIST Ignore ***Supports .gitignore format*** |
-|`ASSETS_PATH` | `".envatoassets/"` | File Location To Assets Ignore ***Supports .gitignore format***  |
-|`ASSETS_IGNORE` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato. this is just for assets. & can you add files like *.psd |
+|`DIST_IGNORE` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato ***Supports `.gitignore` Format***|
+|`ASSETS_PATH` | `".envatoassets/"` | Add file / Local Assets Path |
+|`ASSETS_IGNORE` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato. this is just for assets. & can you add files like *.psd ***Supports `.gitignore` Format*** |
 | `DIST_LOCATION` | `./dist/` | Will store all files uploaded to envato in current action's instance. use this to provide custom path.
 
 ---
