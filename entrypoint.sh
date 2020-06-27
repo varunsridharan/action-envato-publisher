@@ -88,6 +88,8 @@ echo "👌 FTP Deploy Complete"
 echo "##[group] 📦 Copying To Dist Folder"
 mkdir "$GITHUB_WORKSPACE/$DIST_LOCATION"
 cp -r ../envato-final-source/* "$GITHUB_WORKSPACE/$DIST_LOCATION"
+
+echo "Dist Location : $GITHUB_WORKSPACE/$DIST_LOCATION"
 echo "##[endgroup]"
 
 rm -r ../envato-draft-source/
