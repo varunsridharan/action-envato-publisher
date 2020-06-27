@@ -14,21 +14,21 @@ SLUG=${GITHUB_REPOSITORY#*/}
 # Set VERSION value according to tag value.
 VERSION=${GITHUB_REF#refs/tags/}
 
-if [[ $VERSION == $GITHUB_REF ]]; then
+if [ $VERSION == $GITHUB_REF ]; then
   VERSION=${GITHUB_REF#refs/heads/}
 fi
 
-if [[ -z "$DIST_LOCATION" ]]; then
+if [ -z "$DIST_LOCATION" ]; then
   DIST_LOCATION="dist/"
 fi
 
 # Files That Are Needed To Be Excluded
-if [[ ! -z "$EXCLUDE_LIST" ]]; then
+if [ ! -z "$EXCLUDE_LIST" ]; then
   echo "✅ Saving Excluded File List"
   echo $EXCLUDE_LIST | tr " " "\n" >>envato_exclude_list.txt
 fi
 # Files That Are Needed To Be Excluded
-if [[ ! -z "$ASSETS_EXCLUDE_LIST" ]]; then
+if [ ! -z "$ASSETS_EXCLUDE_LIST" ]; then
   echo "✅ Saving Assets Excluded File List"
   echo $ASSETS_EXCLUDE_LIST | tr " " "\n" >>envato_assets_exclude_list.txt
 fi
