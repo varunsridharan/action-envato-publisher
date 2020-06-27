@@ -41,6 +41,7 @@ fi
 if [ ! -z "$DIST_IGNORE_PATH" ]; then
   echo "###[group] $DIST_IGNORE_PATH Contents"
   echo "$ASSETS_IGNORE $DIST_IGNORE $ASSETS_PATH .git .github node_modules .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
+  cat $DIST_IGNORE_PATH
   echo "###[endgroup]"
 fi
 
