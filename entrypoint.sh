@@ -20,30 +20,22 @@ if [ -z "$DIST_LOCATION" ]; then
   DIST_LOCATION="dist/"
 fi
 
-if [ ! -z "$DIST_IGNORE" ]; then
-  if [ ! -e "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
-    echo "⚠️ Dist Ignore File Not Found !"
-    DIST_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_distignore.txt"
-    touch $DIST_IGNORE_PATH
-    echo ".git .github $ASSETS_IGNORE node_modules $DIST_IGNORE .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
-  else
-    DIST_IGNORE_PATH="$GITHUB_WORKSPACE/$DIST_IGNORE"
-  fi
+if [ ! -e "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
+  echo "⚠️ Dist Ignore File Not Found !"
+  DIST_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_distignore.txt"
+  touch $DIST_IGNORE_PATH
+  echo ".git .github $ASSETS_IGNORE node_modules $DIST_IGNORE .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
+elif [ -f "$DIST_IGNORE" ]; then
+  DIST_IGNORE_PATH="$GITHUB_WORKSPACE/$DIST_IGNORE"
 fi
 
-if [ ! -z "$ASSETS_IGNORE" ]; then
-  if [ ! -e "$GITHUB_WORKSPACE/$ASSETS_IGNORE" ]; then
-    echo "⚠️ Assets Ignore File Not Found !"
-    ASSETS_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_assets_distignore.txt"
-    touch $ASSETS_IGNORE_PATH
-    echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
-  else
-    DIST_IGNORE_PATH="$GITHUB_WORKSPACE/$ASSETS_IGNORE"
-  fi
-
-  if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
-    echo "$ASSETS_PATH" | tr " " "\n" >>"$DIST_IGNORE_PATH"
-  fi
+if [ ! -e "$GITHUB_WORKSPACE/$ASSETS_IGNORE" ]; then
+  echo "⚠️ Assets Ignore File Not Found !"
+  ASSETS_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_assets_distignore.txt"
+  touch $ASSETS_IGNORE_PATH
+  echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
+elif [ -f "$ASSETS_IGNORE" ]; then
+  ASSETS_IGNORE_PATH="$GITHUB_WORKSPACE/$ASSETS_IGNORE"
 fi
 
 echo "✅ Creating Required Temp Directories"
