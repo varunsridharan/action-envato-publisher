@@ -10,6 +10,9 @@ RUN apk add rsync
 
 COPY entrypoint.sh /entrypoint.sh
 
+COPY scripts /envato-action-scripts/
+
 RUN chmod +x /*.sh
+RUN chmod -R 777 /envato-action-scripts/
 
 ENTRYPOINT ["/entrypoint.sh"]
