@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/varunsridharan/action-envato-publisher/master/assets/logo.png" alt="Envato"/>
+  <img src="https://cdn.svarun.dev/gh/varunsridharan/action-envato-publisher/logo.png" alt="Envato"/>
 </p>
 
 # Envato FTP Uploader - ***Github Action***
@@ -10,10 +10,9 @@ Push Source Code To Envato FTP By packing contents into a zipfile
 | --- | ------- | ----------- |
 |`ENVATO_USERNAME` | null | Your Envato Account Username |
 |`ENVATO_PERSONAL_TOKEN` | null | Your Envato Access Code `Personal Access Token`. See Blow On How To Get Your Token |
-|`CUSTOM_COMMAND` | null | This can be used to pass custom command which can be used to build plugin assets before files are copied to plugin Eg : `composer install` |
-|`EXCLUDE_LIST` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato |
-|`ASSETS_PATH` | '.envatoassets/' | Add file / Local Assets Path |
-|`ASSETS_EXCLUDE_LIST` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato. this is just for assets. & can you add files like *.psd |
+|`DIST_IGNORE` | null | File Location To DIST Ignore ***Supports .gitignore format*** |
+|`ASSETS_PATH` | '.envatoassets/' | File Location To Assets Ignore ***Supports .gitignore format***  |
+|`ASSETS_IGNORE` | null | Add file / folders/files that you wish to exclude from final list of files to be sent to envato. this is just for assets. & can you add files like *.psd |
 | `DIST_LOCATION` | `./dist/` | Will store all files uploaded to envato in current action's instance. use this to provide custom path.
 
 **⚠️ Tips:**
@@ -34,10 +33,10 @@ Push Source Code To Envato FTP By packing contents into a zipfile
 6. Scroll Down & Click Create Token
 
 ### Create Token Option
-![https://raw.githubusercontent.com/varunsridharan/action-envato-publisher/master/assets/1566526864-182.jpg](https://raw.githubusercontent.com/varunsridharan/action-envato-publisher/master/assets/1566526864-182.jpg)
+![https://cdn.svarun.dev/gh/varunsridharan/action-envato-publisher/1566526864-182.jpg](https://cdn.svarun.dev/gh/varunsridharan/action-envato-publisher/1566526864-182.jpg)
 
 ### Token Permissions
-![https://raw.githubusercontent.com/varunsridharan/action-envato-publisher/master/assets/1566526963-120.jpg](https://raw.githubusercontent.com/varunsridharan/action-envato-publisher/master/assets/1566526963-120.jpg)
+![https://cdn.svarun.dev/gh/varunsridharan/action-envato-publisher/1566526963-120.jpg](https://cdn.svarun.dev/gh/varunsridharan/action-envato-publisher/1566526963-120.jpg)
 
 ---
 
@@ -60,8 +59,6 @@ jobs:
       with:
         envato_username: ${{ secrets.envato_username }}
         envato_personal_token: ${{ secrets.envato_personal_token }}
-        custom_command: "composer install --no-dev"
-        exclude_list: "vendor/*/*/README.md vendor/*/*/.gitignore"
 ```
 
 ---
