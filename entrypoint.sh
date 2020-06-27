@@ -23,7 +23,7 @@ fi
 if [ ! -z "$DIST_IGNORE" ]; then
   if [ ! -e "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
     echo "⚠️ Dist Ignore File Not Found !"
-    DIST_IGNORE_PATH="${GITHUB_WORKSPACE}/.envato_distignore"
+    DIST_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_distignore.txt"
     touch $DIST_IGNORE_PATH
     echo ".git .github $ASSETS_IGNORE node_modules $DIST_IGNORE .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
   else
@@ -34,7 +34,7 @@ fi
 if [ ! -z "$ASSETS_IGNORE" ]; then
   if [ ! -e "$GITHUB_WORKSPACE/$ASSETS_IGNORE" ]; then
     echo "⚠️ Assets Ignore File Not Found !"
-    ASSETS_IGNORE_PATH="${GITHUB_WORKSPACE}/.envato_assets_distignore"
+    ASSETS_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_assets_distignore.txt"
     touch $ASSETS_IGNORE_PATH
     echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
   else
