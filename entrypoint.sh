@@ -40,14 +40,18 @@ elif [ -f "$ASSETS_IGNORE" ]; then
 fi
 
 if [ ! -z "$DIST_IGNORE_PATH" ]; then
-  echo "###[group] 📝 $DIST_IGNORE_PATH Contents"
+  echo "###[group] 📝 Dist Ignore File Contents"
+  echo "File Location : $DIST_IGNORE_PATH"
+  echo " "
   echo "$ASSETS_IGNORE $DIST_IGNORE $ASSETS_PATH .git .github node_modules .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
   cat $DIST_IGNORE_PATH
   echo "###[endgroup]"
 fi
 
 if [ ! -z "$ASSETS_IGNORE_PATH" ]; then
-  echo "###[group] 📝 $ASSETS_IGNORE_PATH Contents"
+  echo "###[group] 📝 Assets Ignore File Contents"
+  echo "File Location : $ASSETS_IGNORE_PATH"
+  echo " "
   echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
   cat $ASSETS_IGNORE_PATH
   echo "###[endgroup]"
@@ -93,10 +97,11 @@ if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo " "
 fi
 
-echo " "
 echo "##[group]⬆️ List Of Files To Be Uploaded"
 cd ../envato-final-source && ls -lah
 echo "##[endgroup]"
+
+echo " "
 
 echo "📦 Source Zip Filename : $SLUG-$VERSION.zip"
 echo "📦 Screenshots Zip Filename : $SLUG-$VERSION-screenshots.zip"
