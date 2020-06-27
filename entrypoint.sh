@@ -20,6 +20,7 @@ if [ -z "$DIST_LOCATION" ]; then
   DIST_LOCATION="dist/"
 fi
 
+echo " "
 if [ ! -f "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
   echo "⚠️ Dist Ignore File Not Found !"
   DIST_IGNORE="envato_distignore.txt"
@@ -39,18 +40,19 @@ elif [ -f "$ASSETS_IGNORE" ]; then
 fi
 
 if [ ! -z "$DIST_IGNORE_PATH" ]; then
-  echo "###[group] $DIST_IGNORE_PATH Contents"
+  echo "###[group] 📝 $DIST_IGNORE_PATH Contents"
   echo "$ASSETS_IGNORE $DIST_IGNORE $ASSETS_PATH .git .github node_modules .gitattributes .gitignore .DS_Store" | tr " " "\n" >>"$DIST_IGNORE_PATH"
   cat $DIST_IGNORE_PATH
   echo "###[endgroup]"
 fi
 
 if [ ! -z "$ASSETS_IGNORE_PATH" ]; then
-  echo "###[group] $ASSETS_IGNORE_PATH Contents"
+  echo "###[group] 📝 $ASSETS_IGNORE_PATH Contents"
   echo "screenshots/ *.psd .DS_Store *.db .git .github .gitignore .gitattributes node_modules" | tr " " "\n" >>"$ASSETS_IGNORE_PATH"
   cat $ASSETS_IGNORE_PATH
   echo "###[endgroup]"
 fi
+echo " "
 
 
 
@@ -91,14 +93,15 @@ if [ -d "$GITHUB_WORKSPACE/$ASSETS_PATH" ]; then
   echo " "
 fi
 
-echo "📦 Source Zip Filename : $SLUG-$VERSION.zip"
-echo "📦 Screenshots Zip Filename : $SLUG-$VERSION-screenshots.zip"
 echo " "
-echo "🗃 Envato Upload Started"
-lftp "ftp.marketplace.envato.com" -u $ENVATO_USERNAME,$ENVATO_PERSONAL_TOKEN -e "set ftp:ssl-allow yes; mirror -R ../envato-final-source/ ./; quit"
-echo "##[group]⬆️Uploaded Files"
+echo "##[group]⬆️ List Of Files To Be Uploaded"
 cd ../envato-final-source && ls -lah
 echo "##[endgroup]"
+
+echo "📦 Source Zip Filename : $SLUG-$VERSION.zip"
+echo "📦 Screenshots Zip Filename : $SLUG-$VERSION-screenshots.zip"
+echo "🗃 Envato Upload Started"
+lftp "ftp.marketplace.envato.com" -u $ENVATO_USERNAME,$ENVATO_PERSONAL_TOKEN -e "set ftp:ssl-allow yes; mirror -R ../envato-final-source/ ./; quit"
 echo "👌 FTP Deploy Complete"
 
 echo "##[group] 📦 Copying To Dist Folder"
