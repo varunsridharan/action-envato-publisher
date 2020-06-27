@@ -20,7 +20,7 @@ if [ -z "$DIST_LOCATION" ]; then
   DIST_LOCATION="dist/"
 fi
 
-if [ ! -e "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
+if [ ! -f "$GITHUB_WORKSPACE/$DIST_IGNORE" ]; then
   echo "⚠️ Dist Ignore File Not Found !"
   DIST_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_distignore.txt"
   touch $DIST_IGNORE_PATH
@@ -29,7 +29,7 @@ elif [ -f "$DIST_IGNORE" ]; then
   DIST_IGNORE_PATH="$GITHUB_WORKSPACE/$DIST_IGNORE"
 fi
 
-if [ ! -e "$GITHUB_WORKSPACE/$ASSETS_IGNORE" ]; then
+if [ ! -f "$GITHUB_WORKSPACE/$ASSETS_IGNORE" ]; then
   echo "⚠️ Assets Ignore File Not Found !"
   ASSETS_IGNORE_PATH="${GITHUB_WORKSPACE}/envato_assets_distignore.txt"
   touch $ASSETS_IGNORE_PATH
