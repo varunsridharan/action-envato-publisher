@@ -1,15 +1,7 @@
-FROM alpine:latest
-
-LABEL maintainer="Varun Sridharan <varunsridharan23@gmail.com>"
-
-RUN apk add lftp
-
-RUN apk add zip
-
-RUN apk add rsync
+FROM varunsridharan/actions-alpine:latest
 
 COPY entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /*.sh
+RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
