@@ -50,7 +50,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Envato Publisher
-    - uses: varunsridharan/action-envato-publisher@master
+    - uses: varunsridharan/action-envato-publisher@main
       with:
         envato_username: ${{ secrets.envato_username }}
         envato_personal_token: ${{ secrets.envato_personal_token }}
@@ -71,7 +71,7 @@ If you, or your company, use any of my projects or like what I’m doing, kindly
 - 🚀         Love open-source tools? Me too! How about supporting one hour of open-source development for just [**$49.99 one-time ?**][paypal]
 
 ## 📝 License & Conduct
-- [**General Public License v3.0 license**](LICENSE) © [Varun Sridharan](website)
+- [**MIT**](LICENSE) © [Varun Sridharan](website)
 - [Code of Conduct](code-of-conduct.md)
 
 ## 📣 Feedback
