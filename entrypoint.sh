@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eu
+set -e
 
 source /gh-toolkit/shell.sh
 
