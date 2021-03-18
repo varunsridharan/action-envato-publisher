@@ -91,7 +91,7 @@ else
 fi
 
 gh_log
-gh_log_group_start  "📦 Generating Final Zip File"
+gh_log_group_start "📦 Generating Final Zip File"
 cd ../envato-draft-source/
 zip -r9 "../envato-final-source/$SLUG-$VERSION.zip" ./
 gh_log_group_end
@@ -107,7 +107,7 @@ fi
 
 gh_log_group_start "⬆️ List Of Files To Be Uploaded"
 cd ../envato-final-source
-tree -a -C -h  --filelimit 100
+tree -a -C -h --filelimit 100
 gh_log_group_end
 
 gh_log
@@ -128,5 +128,11 @@ rm -r ../envato-draft-source/
 rm -r ../envato-draft-source-assets
 rm -r ../envato-draft-source-screenshots
 rm -r ../envato-final-source/
+
+gh_set_output "source_zip" "${SLUG}-${VERSION}.zip"
+gh_set_output "screenshots_zip" "${SLUG}-${VERSION}-screenshots.zip"
+
+gh_set_output "source_zip_location" "${GITHUB_WORKSPACE}/${DIST_LOCATION}/${SLUG}-${VERSION}.zip"
+gh_set_output "screenshots_zip_location" "${GITHUB_WORKSPACE}/${DIST_LOCATION}/${SLUG}-${VERSION}-screenshots.zip"
 
 cd $HOME

@@ -4,6 +4,17 @@ author: 'varunsridharan'
 branding:
   icon: 'hard-drive'
   color: 'green'
+
+outputs:
+  source_zip:
+    description: "Provides Name Of Source Zipfile"
+  screenshots_zip:
+    description: "Provides Name Of Screenshots Zipfile"
+  source_zip_location:
+    description: "Provides Location Of Source Zipfile"
+  screenshots_zip_location:
+    description: "Provides Location Of Screenshots Zipfile"
+
 inputs:
   ENVATO_USERNAME:
     description: 'Envato.com Account Username'
