@@ -132,7 +132,7 @@ rm -r ../envato-final-source/
 gh_set_output "source_zip" "${SLUG}-${VERSION}.zip"
 gh_set_output "screenshots_zip" "${SLUG}-${VERSION}-screenshots.zip"
 
-gh_set_output "source_zip_location" "${GITHUB_WORKSPACE}/${DIST_LOCATION}/${SLUG}-${VERSION}.zip"
-gh_set_output "screenshots_zip_location" "${GITHUB_WORKSPACE}/${DIST_LOCATION}/${SLUG}-${VERSION}-screenshots.zip"
+gh_set_output "source_zip_location" "${DIST_LOCATION}/${SLUG}-${VERSION}.zip"
+gh_set_output "screenshots_zip_location" "${DIST_LOCATION}/${SLUG}-${VERSION}-screenshots.zip"
 
 cd $HOME
