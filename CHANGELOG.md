@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.6 - 18/03/2021
+* Action now outputs source file & screenshot file name & location with below variable
+```
+- source_zip
+- source_zip_location
+
+- screenshots_zip
+- screenshots_zip_location
+```
+
 ## 1.5 - 22/10/2020
 * Migrated From `alpine:latest` To `varunsridharan/actions-alpine:latest` Docker Image
 * Improved Logging
